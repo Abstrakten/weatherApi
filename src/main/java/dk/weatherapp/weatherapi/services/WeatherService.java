@@ -19,7 +19,7 @@ public class WeatherService {
     }
 
     public Optional<WeatherReport> getLocationReport(String locationId) {
-        var report = weatherReportRepository.findById(locationId);
+        var report = weatherReportRepository.findByCityId(locationId);
         if (report.isEmpty()) {
             report = downloadReport(locationId);
         }

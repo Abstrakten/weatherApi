@@ -13,14 +13,14 @@ public class WeatherApiClient {
     private RestTemplate restTemplate;
 
     private String uri = "http://api.openweathermap.org/data/2.5/forecast?id={id}&appid={apikey}";
-    private String apiKey = "a7455f93986f4e5d2da1019649eb7188";
+    private String apiKey = "32e0d09d0d007200079a8498496b6d43";
 
     public WeatherApiClient(RestTemplateBuilder builder) {
         this.restTemplate = builder.build();
     }
 
     public Optional<WeatherReport> downloadReport(String locationId) {
-        var data = restTemplate.getForObject(uri, String.class, locationId, apiKey);
-        return Optional.of(new WeatherReport(data));
+        var data = restTemplate.getForEntity(uri, WeatherReport.class, locationId, apiKey);
+        return Optional.ofNullable(data.getBody());
     }
 }
